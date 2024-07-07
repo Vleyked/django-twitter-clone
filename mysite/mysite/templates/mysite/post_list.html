@@ -1,0 +1,65 @@
+{% extends 'mysite/base.html' %}
+
+{% block title %}Post List{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="content">
+        <div class="card mb-3">
+            <div class="card-header">
+                <strong>Write a new post</strong>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{% url 'post_list' %}">
+                    {% csrf_token %}
+                    {{ form.title.label_tag }}<br>
+                    {{ form.title }}
+                    <div class="form-group">
+                        {{ form.content }}
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2" style="float: right;">Post</button>
+                </form>
+            </div>
+        </div>
+
+        <h1>Post List</h1>
+        {% for post in posts %}
+        <div class="card">
+            <div class="card-header">
+                {{ post.user.username }}
+            </div>
+            <div class="card-body">
+                <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+                <p>{{ post.content }}</p>
+                <small class="text-muted">{{ post.created_at }}</small>
+            </div>
+            <div class="card-footer">
+                <span class="interaction-btn">Like ({{ post.like_count }})</span>
+                <span class="interaction-btn ml-3">Comment ({{ post.comment_count }})</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="sidebar">
+        <div class="card">
+            <div class="card-header">
+                User Information
+            </div>
+            <div class="card-body">
+                <p>Username: {{ request.user.username }}</p>
+                <p>Email: {{ request.user.email }}</p>
+            </div>
+        </div>
+        <div class="card mt-3">
+            <div class="card-header">
+                Trending Topics
+            </div>
+            <div class="card-body">
+                <p>#ExampleTopic1</p>
+                <p>#ExampleTopic2</p>
+                <p>#ExampleTopic3</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

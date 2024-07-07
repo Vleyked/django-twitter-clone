@@ -1,0 +1,31 @@
+{% extends 'mysite/base.html' %}
+
+{% block title %}Post Detail{% endblock %}
+
+{% block content %}
+<h1>{{ post.title }}</h1>
+<p>{{ post.content }}</p>
+<p>Likes: {{ post.like_count }}</p>
+
+<h2>Comments</h2>
+<ul>
+    {% for comment in comments %}
+    <li>{{ comment.text }}</li>
+    {% endfor %}
+</ul>
+
+<h3>Add a Comment</h3>
+<form method="post" action="{% url 'add_comment' post.id %}">
+    {% csrf_token %}
+    <div class="form-group">
+        <textarea name="text" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Comment</button>
+</form>
+
+<h3>Add a Like</h3>
+<form method="post" action="{% url 'add_like' post.id %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Like</button>
+</form>
+{% endblock %}
