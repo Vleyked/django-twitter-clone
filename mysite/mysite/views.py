@@ -69,7 +69,7 @@ def add_like(request, pk):
     if request.method == "POST":
         post = get_object_or_404(Post, pk=pk)
         user = (
-            request.user.id
+            request.user
             if request.user.is_authenticated
             else get_object_or_404(User, username="defaultuser")
         )
