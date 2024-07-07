@@ -21,11 +21,11 @@ class User(AbstractUser):
 
 def get_default_user():
     user = User.objects.first()
-    if not user.id:
+    if not user:
         user = User.objects.create_user(
             username="defaultuser", password="defaultpassword"
         )
-    return user.id
+    return user
 
 
 class Post(models.Model):
