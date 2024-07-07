@@ -2,7 +2,8 @@
 This is a project built from scratch cloning formerly twitter basic functionality
 
 # You can clone this repo by
-`git clone https://github.com/Vleyked/django-twitter-clone.git`
+1. `cd ~`
+2. `git clone https://github.com/Vleyked/django-twitter-clone.git`
 
 # Useful git commands to navigate on this repo
 
