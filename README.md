@@ -3,21 +3,7 @@ This is a project built from scratch cloning formerly twitter basic functionalit
 
 # Quickstart
 ```bash
-# 1. 
-# Make sure you have the recommended python version
-py --version # This works on Windows 
-python --version # This works <sometimes> on Windows
-python3.11 --version # This works in Linux based OS's like Mac and all Linux distros
 
-# The ooutput from the previous command should be Python 3.11.X
-
-# 2. 
-# Starting a fresh virtual environemtns
-py -m venv venv # Windows users
-python3.11 -m venv venv # Linux/Mac Users
-
-# 3. Installing the packages
-pip install -r requirements
 ```
 
 # You can clone this repo by
