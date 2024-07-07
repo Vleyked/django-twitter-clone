@@ -16,8 +16,11 @@ python3.11 --version # This works in Linux based OS's like Mac and all Linux dis
 py -m venv venv # Windows users
 python3.11 -m venv venv # Linux/Mac Users
 
+
+
 # 3. Installing the packages
 pip install -r requirements
+
 ```
 
 # You can clone this repo by
