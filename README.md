@@ -8,6 +8,7 @@ This is a project built from scratch cloning formerly twitter basic functionalit
 # Useful git commands to navigate on this repo
 
 ```bash
+# Switching to another branch
 git switch <branch-name>
     git switch main
     git switch starting_point-exercise-templates
@@ -16,8 +17,8 @@ git switch <branch-name>
 git fetch
 
 # Update one branch of the repo
-git switch <that-branch>
-git pull origin <that-branch>
+git switch <that-branch> # This just switch to that branch
+git pull origin <that-branch> # This updates a single branch
 # Example
 git switch end_point-exerise-templates
 git pull origin end_point-exerise-templates
