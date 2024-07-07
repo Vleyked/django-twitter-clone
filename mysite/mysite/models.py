@@ -25,7 +25,7 @@ def get_default_user():
         user = User.objects.create_user(
             username="defaultuser", password="defaultpassword"
         )
-    return user
+    return user.id
 
 
 class Post(models.Model):
