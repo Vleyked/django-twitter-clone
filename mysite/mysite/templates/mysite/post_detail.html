@@ -60,9 +60,9 @@
                 Trending Topics
             </div>
             <div class="card-body">
-                <p>#ExampleTopic1</p>
-                <p>#ExampleTopic2</p>
-                <p>#ExampleTopic3</p>
+                {% for topic in trending_topics %}
+                <p>#{{ topic.topic }} ({{ topic.count }})</p>
+                {% endfor %}
             </div>
         </div>
     </div>
