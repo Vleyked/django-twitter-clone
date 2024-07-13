@@ -1,22 +1,7 @@
-from django.contrib.auth.models import AbstractUser, Group, Permission
+import re
+
+from django.contrib.auth.models import User
 from django.db import models
-
-
-class User(AbstractUser):
-    groups = models.ManyToManyField(
-        Group,
-        related_name="custom_user_set",
-        blank=True,
-        help_text="The groups this user belongs to.",
-        verbose_name="groups",
-    )
-    user_permissions = models.ManyToManyField(
-        Permission,
-        related_name="custom_user_permissions_set",
-        blank=True,
-        help_text="Specific permissions for this user.",
-        verbose_name="user permissions",
-    )
 
 
 def get_default_user():
@@ -59,3 +44,23 @@ class Like(models.Model):
 
     def __str__(self):
         return f"Like on {self.post.title} by {self.created_at}"
+
+
+class TrendingTopic(models.Model):
+    topic = models.CharField(max_length=255, unique=True)
+    count = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.topic
+
+
+def update_trending_topics(content):
+    topics = re.findall(r"#(\w+)", content)
+    for topic in topics:
+        trending_topic, created = TrendingTopic.objects.get_or_create(topic=topic)
+        trending_topic.count += 1
+        trending_topic.save()
+
+
+def get_trending_topics():
+    return TrendingTopic.objects.order_by("-count")[:10]
