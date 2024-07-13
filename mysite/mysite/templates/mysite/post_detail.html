@@ -3,29 +3,78 @@
 {% block title %}Post Detail{% endblock %}
 
 {% block content %}
-<h1>{{ post.title }}</h1>
-<p>{{ post.content }}</p>
-<p>Likes: {{ post.like_count }}</p>
+<div class="container">
+    <div class="content">
+        <div class="card mb-3">
+            <div class="card-header">
+                {{ post.user.username }}
+            </div>
+            <div class="card-body">
+                <h3>{{ post.title }}</h3>
+                <p>{{ post.content }}</p>
+                <small class="text-muted">{{ post.created_at }}</small>
+            </div>
+            <div class="card-footer">
+                <span class="interaction-btn">Like ({{ post.like_count }})</span>
+                <span class="interaction-btn ml-3">Comment ({{ post.comment_count }})</span>
+            </div>
+        </div>
 
-<h2>Comments</h2>
-<ul>
-    {% for comment in comments %}
-    <li>{{ comment.text }}</li>
-    {% endfor %}
-</ul>
+        <div class="card mb-3">
+            <div class="card-header">
+                <strong>Write a new comment</strong>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{% url 'add_comment' post.id %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <textarea name="text" rows="1" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2" style="float: right;">Comment</button>
+                </form>
+            </div>
+        </div>
 
-<h3>Add a Comment</h3>
-<form method="post" action="{% url 'add_comment' post.id %}">
-    {% csrf_token %}
-    <div class="form-group">
-        <textarea name="text" class="form-control"></textarea>
+        <h2>Comments</h2>
+        {% for comment in comments %}
+        <div class="comment-card">
+            <div class="comment-card-body">
+                <p>{{ comment.text }}</p>
+                <small class="text-muted">{{ comment.created_at }}</small>
+            </div>
+        </div>
+        {% endfor %}
     </div>
-    <button type="submit" class="btn btn-primary">Add Comment</button>
-</form>
+    <div class="sidebar">
+        <div class="card">
+            <div class="card-header">
+                User Information
+            </div>
+            <div class="card-body">
+                <p>Username: {{ request.user.username }}</p>
+                <p>Email: {{ request.user.email }}</p>
+            </div>
+        </div>
+        <div class="card mt-3">
+            <div class="card-header">
+                Trending Topics
+            </div>
+            <div class="card-body">
+                <p>#ExampleTopic1</p>
+                <p>#ExampleTopic2</p>
+                <p>#ExampleTopic3</p>
+            </div>
+        </div>
+    </div>
+</div>
 
-<h3>Add a Like</h3>
-<form method="post" action="{% url 'add_like' post.id %}">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-primary">Like</button>
-</form>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const textarea = document.querySelector('textarea');
+        textarea.addEventListener('input', function() {
+            textarea.style.height = 'auto';
+            textarea.style.height = textarea.scrollHeight + 'px';
+        });
+    });
+</script>
 {% endblock %}
