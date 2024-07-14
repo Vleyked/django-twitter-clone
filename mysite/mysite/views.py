@@ -73,10 +73,11 @@ def post_list(request):
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     comments = post.comments.all()
+    trending_topics = TrendingTopic.objects.all().order_by("-count")[:10]
     return render(
         request,
         "mysite/post_detail.html",
-        {"post": post, "comments": comments},
+        {"post": post, "comments": comments, "trending_topics": trending_topics},
     )
 
 
@@ -113,8 +114,9 @@ def add_like(request, pk):
     if request.method == "POST":
         post = get_object_or_404(Post, pk=pk)
         user = request.user  # Assign the user directly
-        Like.objects.create(post=post, user=user)
-        post.like_count = post.likes.count()
-        post.save()
+        if not Like.objects.filter(post=post, user=user).exists():
+            Like.objects.create(post=post, user=user)
+            post.like_count = post.likes.count()
+            post.save()
         return redirect("post_detail", pk=post.pk)
     return HttpResponse(status=405)
