@@ -39,3 +39,10 @@ git diff my_changes_exercise-templates end_point-exercise-templates
 # You will see the differences between the starting point and the corrected work
 git diff starting_point-exercise-templates end_point-exercise-templates
 ```
+# If you are having issues with the repo specially when you see errors like `table x does not exist`
+```
+1. Restart the database by deleting all files in the migration folder but the __init__.py <-- please keep this one 
+2. Delete the db.sqlite
+3. python manage.py makemigrations
+4. python manage.py migrate
+```
