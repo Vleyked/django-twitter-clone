@@ -29,7 +29,7 @@
                 {% for post in posts %}
                     <div class="card mb-3">
                         <div class="card-header">
-                            <i class="fas fa-user"></i> {{ post.user.username }}
+                            <i class="fas fa-user"></i> {{ post.user.username }} ({{ post.user.email }})
                         </div>
                         <div class="card-body">
                             <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
@@ -37,8 +37,11 @@
                             <small class="text-muted">{{ post.created_at }}</small>
                         </div>
                         <div class="card-footer">
-                            <a href="#" class="interaction-btn"><i class="fas fa-thumbs-up"></i> Like ({{ post.like_count }})</a>
-                            <a href="#" class="interaction-btn ml-3"><i class="fas fa-comment"></i> Comment ({{ post.comment_count }})</a>
+                            <form method="post" action="{% url 'add_like' post.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-link p-0"><i class="fas fa-thumbs-up"></i> Like ({{ post.like_count }})</button>
+                            </form>
+                            <a href="{% url 'post_detail' post.id %}" class="interaction-btn ml-3"><i class="fas fa-comment"></i> Comment ({{ post.comment_count }})</a>
                         </div>
                     </div>
                 {% endfor %}
