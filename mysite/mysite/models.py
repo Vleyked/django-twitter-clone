@@ -48,7 +48,7 @@ class Like(models.Model):
 
 class TrendingTopic(models.Model):
     topic = models.CharField(max_length=255, unique=True)
-    count = models.IntegerField(default=0)
+    count = models.IntegerField(default=1)
 
     def __str__(self):
         return self.topic
